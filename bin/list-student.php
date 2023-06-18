@@ -1,5 +1,7 @@
 <?php
 
+use App\Entity\Course;
+use App\Entity\Phone;
 use App\Entity\Student;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -12,5 +14,9 @@ $studentRepository = $entityManager->getRepository(Student::class);
 $students = $studentRepository->findAll();
 
 foreach ($students as $student) {
-    echo $student->id . ' - ' . $student->name . PHP_EOL;
+    echo "Student: " . $student->id . ' - ' . $student->name . PHP_EOL;
+    echo "Phones: " . implode(', ', $student->phones()->map(fn(Phone $phone) => $phone->number)->toArray()) . PHP_EOL;
+    echo "Course: " . implode(', ', $student->courses()->map(fn(Course $course) => $course->name)->toArray()) . PHP_EOL;
+
+    echo PHP_EOL;
 }

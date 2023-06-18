@@ -6,7 +6,8 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $entityManager = \App\Helper\EntityManagerCreator::createEntityManager();
 
-$student = $entityManager->find(Student::class, $argv[1]);
+$course = new \App\Entity\Course($argv[1]);
 
-$entityManager->remove($student);
+
+$entityManager->persist($course);
 $entityManager->flush();
